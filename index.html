@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Intro til FRP</title>
+
+        <link rel="stylesheet" href="./css/reveal.min.css">
+        <link rel="stylesheet" href="./css/theme/night.css">
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <div class="slides">
+
+                <section>
+                    <h2>Introduksjon til FRP</h2>
+                    <p>BEKK Fagdag</p>
+                    <p>Stian Veum Møllersen / <a href="http://twitter.com/mollerse">@mollerse</a></p>
+                    <p>Mikael Brevik / <a href="http://twitter.com/mikaelbrevik">@mikaelbrevik</a></p>
+                    <p><a href="http://open.bekk.no">open.bekk.no</a></p>
+                </section>
+
+                <section>
+                    <p>Slide 1</p>
+                </section>
+
+            </div>
+
+        </div>
+
+        <script src="./lib/js/head.min.js"></script>
+        <script src="./js/reveal.min.js"></script>
+
+        <script>
+
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; }},
+                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
