@@ -8,23 +8,23 @@
  - Hva er funksjonell programmering
  - Hva er reaktiv programmering
  - Hva er FRP
-   - Forklare sentrale konsepter
-   - EventStream
-   - Property
+    - Forklare sentrale konsepter
+    - EventStream
+    - Property
 
 ## FRP i (web)GUI
  - Forskjell fra event-driven
  - Forskjell fra MV*
  - Sentrale konsepter
-   - Enveis-binding
-   - Komposisjon
-   - 
+    - Enveis-binding
+    - Komposisjon
+    - 
 
 ## Bacon.js
  - Intro til API
  - Er det gjort noen tilpasninger for å få FRP til i JS?
  - Lessons learned
-   - Properties
+    - Properties
    - Error-messages
 
 ## Praktiske eksempler
