@@ -18,16 +18,32 @@
  - Sentrale konsepter
     - Enveis-binding
     - Komposisjon
-    - 
 
 ## Bacon.js
  - Intro til API
- - Er det gjort noen tilpasninger for å få FRP til i JS?
  - Lessons learned
     - Properties
-   - Error-messages
+    - Error-messages
 
 ## Praktiske eksempler
  - Form med validering og submit
  - AJAX
  - Shared model (annet klassisk MV*-eksempel?)
+
+
+        var column = (function () {
+            var _add = function (a, b) { return a + b};
+            return function (id) {
+                var foo = Bacon.fromEvent(socket, id)
+                            .map(1)
+                            .scan(0, _add);
+
+                foo.assign($(id), "text");
+                foo.assign($(id), "height");
+                return foo;
+            };
+        }());
+
+        column("sprit");
+        column("bil");
+        column("innvandring");
