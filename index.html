@@ -25,6 +25,16 @@
                 </section>
 
                 <section>
+                    <h2>Agenda</h2>
+                    <ol>
+                        <li>Teoretisk introduksjon</li>
+                        <li>FRP i front-end</li>
+                        <li>Bacon.js</li>
+                        <li>Praktiske eksempler og demo</li>
+                    </ol>
+                </section>
+
+                <section>
                     <h3>Hva er Functional Reactive Programming?</h3>
                     <p>Kombinasjonen mellom to paradigmer:</p>
                     <ol>
@@ -34,31 +44,64 @@
                 </section>
 
                 <section>
-                    <section><h3>Funksjonell programmering</h3></section>
+                    <section><h2>Funksjonell programmering</h2></section>
                     <section>
-                        <p>En deklerativ programmeringsparadigme med funksjoner i fokus. Unngår tilstander og mutable objekter.</p>
-                    </section>
-
-                    <section>
-                        <p>Unngår bieffekter som kan påvirker deler av programmet som ikke skal bli påvirket.</p>
+                        <h3>En deklarativ programmeringsparadigme med funksjoner i fokus.</h3>
+                        <h4>Unngår tilstander og mutable objekter.</h4>
                     </section>
                     <section>
-                        <p>Vanlig med bruk av blant annet <code>map</code>, <code>reduce</code> og <code>filter</code>.</p>
-                        <p>Eksempler på språk kan være Lisp, Haskell, Erlang, men også Javascript</p>
+                        <h4>Deklarativ programmering forklarer hva som skjer.</h4>
+                        <h4>Imperativ programmering forklarer hvordan det skal skje!</h4>
+                    </section>
+                    <section>
+                        <h3>Unngår uønskede bieffekter</h3>
+                    </section>
+                    <section>
+                        <h3>Vanlig med bruk av blant annet <code>map</code>, <code>reduce</code> og <code>filter</code>.</h3>
+                        <h4>Eksempler på språk kan være Lisp, Haskell, Scala, men også JavaScript</h4>
                     </section>
                 </section>
                 <section>
-                    <section><h3>Reaktiv programmering</h3></section>
+                    <section><h2>Reaktiv programmering</h2></section>
                     <section>
-                        <p>Kan beskrives som en metode for å holde systemet kontinuerlig oppdatert med omgivelsene.</p>
-                        <p>En måte for data å reagere på endringer og oppdatere for å reflektere disse endringene.</p>
+                        <h3>Kan beskrives som en metode for å holde systemet kontinuerlig oppdatert med omgivelsene.</h3>
                     </section>
                     <section>
-                        <p>Et eksempel på reaktiv data kan være et regneark og summen av to tall.</p>
+                        <h3>En måte for data å reagere på endringer og oppdatere for å reflektere disse endringene.</h3>
                     </section>
                     <section>
-                        <p>De fleste bruker reaktiv programmering, selv om en ikke nødvendigvis er klar over at det er det en bruker.</p>
-                        <p>F.eks hendelser på klikk, tastaturer o.l. vil være reaktiv programmering</p>
+                        <h3>Et eksempel på reaktiv data kan være et regneark og summen av to tall.</h3>
+                    </section>
+                    <section>
+                        <input type="number" id="a"/>
+                        <input type="number" id="b"/>
+                        <input type="number" id="sum"/>
+
+                        <script>
+                        // implement data flow example
+                        </script>
+                    </section>
+                </section>
+
+                <section>
+                    <section><h2>Funksjonell Reaktiv Programmering</h2></section>
+                    <section>
+                        <h3>To generelle konsepter</h3>
+                        <ol>
+                            <li>Behaviours (Adferd)</li>
+                            <li>Events (Hendelse)</li>
+                        </ol>
+                    </section>
+                    <section>
+                        <h3>Adferder</h3>
+                        <p>En kontinuerlig verdi. Eksemeplvis klokken, høyde eller vektorgrafikk.</p>
+                    </section>
+                    <section>
+                        <h3>Hendelser</h3>
+                        <p>En diskret verdi. Eksempelvis muse-klikk eller en mengde.</p>
+                    </section>
+                    <section>
+                        <h3>I FRP blir hendelser og adferder behandlet som sekvenser og kan bli håndtert på en funksjonell måte.</h3>
                     </section>
                 </section>
             </div>
