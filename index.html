@@ -168,8 +168,7 @@
                     <section>
                         <h3>Representasjon av data</h3>
                         <p>Models vs Adferder</p>
-                        <aside class="notes">
-                        I Backbone så representeres data som en modell. Den primære funksjonen til en modell her er å kunne abstrahere vekk intern tilstand og varsle om relevante endringer i intern tilstand. Den interne tilstanden er veldig fleksibel og Bacbone legger ingen føringer på det.
+                        <aside class="notes">I Backbone så representeres data som en modell. Den primære funksjonen til en modell her er å kunne abstrahere vekk intern tilstand og varsle om relevante endringer i intern tilstand. Den interne tilstanden er veldig fleksibel og Bacbone legger ingen føringer på det.
 
                         FRP representerer data som en adferd. For at FRP skal kunne representere data er man avengig av å ha en kilde som kan produsere data, feks ajax eller noe som representerer en konstant verdi. Adferder kan kombineres og på den måten kan du representere sammensatte data.
 
@@ -180,14 +179,13 @@
                     <section>
                         <h3>Representasjon av interaksjon</h3>
                         <p>View vs Hendelse</p>
-                        <aside class="notes">
-                            Views i backbone er en innkapsling av funksjonalitet knyttet til en bit av grensesnittet. Koblingen mot GUIet er ganske løs og består hovedsaklig av event-lyttere og en template-funksjon som interpolerer data med markup. For å få avansert interaksjon kan man benytte en modell til å holde data eller ha en intern state i viewet.
+                        <aside class="notes">Views i backbone er en innkapsling av funksjonalitet knyttet til en bit av grensesnittet. Koblingen mot GUIet er ganske løs og består hovedsaklig av event-lyttere og en template-funksjon som interpolerer data med markup. For å få avansert interaksjon kan man benytte en modell til å holde data eller ha en intern state i viewet.
 
-                            Views kan kombineres ved nøsting for å innkapsle ytterligere og på den måten oppnå mer avansert funksjonalitet. Man har også mulighet for arv for å dele funksjonalitet, men arv har sine begrensninger og det kan føre til økt kompleksitet eller brudd på DRY.
+                        Views kan kombineres ved nøsting for å innkapsle ytterligere og på den måten oppnå mer avansert funksjonalitet. Man har også mulighet for arv for å dele funksjonalitet, men arv har sine begrensninger og det kan føre til økt kompleksitet eller brudd på DRY.
 
-                            I FRP så bruker man hendelser, diskrete hendelser i tid, til å representere de elementene som reagerer på interaksjon med grensesnittet. I FRP er det ikke hendelser som er direkte ansvarlig for å gjøre data synlig i grensesnittet, men hendelser kan fortsatt styre når eller hvordan oppdateringen skjer.
+                        I FRP så bruker man hendelser, diskrete hendelser i tid, til å representere de elementene som reagerer på interaksjon med grensesnittet. I FRP er det ikke hendelser som er direkte ansvarlig for å gjøre data synlig i grensesnittet, men hendelser kan fortsatt styre når eller hvordan oppdateringen skjer.
 
-                            For å skape mer avansert interaksjon kan man i FRP komponere hendelser funksjonellt. At du hele tiden benytter deg av de reaktive datatypene gir deg en felles interface og at du ikke har noen intern tilstand i en hendelse gjør at du har mye friere tøyler når det kommer til gjenbruk av funksjonalitet.</aside>
+                        For å skape mer avansert interaksjon kan man i FRP komponere hendelser funksjonellt. At du hele tiden benytter deg av de reaktive datatypene gir deg en felles interface og at du ikke har noen intern tilstand i en hendelse gjør at du har mye friere tøyler når det kommer til gjenbruk av funksjonalitet.</aside>
                     </section>
                     <section>
                         <h3>Abstraksjonsammenligning</h3>
