@@ -156,14 +156,19 @@
 
                         Dette gjør at vi bare trenger å assigne representasjonen av en adferd eller hendelse en gang. Hver gang vi lager en representasjon av enten en adferd eller hendelse eller en kombinasjon av flere så endrer vi ikke på den orginale representasjonen. Dette gjør oss i stand til å lage så mange representasjoner som vi har behov for.</aside>
                     </section>
+                    <section>
+                        <h3>Abstraksjoner</h3>
+                        <p>Datatyper istedenfor innkapsling</p>
+                        <aside class="notes">I Objekt Orientert kode er det vanlig å innkapsle funksjonalitet og tilstand. I FRP får vi heller førsteklasses reaktive datatyper med et api for funksjonell komposisjon og transformasjon. Fordelen med dette er at gjenbruk av kode blir enklere, fordi vi ikke har en intern tilstand og fordi vi ikke trenger å følge regler for forhold mellom innkapslinger, feks arv.</aside>
+                    </section>
                 </section>
                 <section>
                     <section>
                         <h2>Abstraksjonsammenligning: Backbone.js</h2>
-                    </section>
-                    <section>
-                        <h3>Models og Views</h3>
-                        <aside class="notes">Kort sammendrag av Backbone's primære abstraksjoner for GUI; Models og Views. Models brukes for å representere tilstanden til data, mens Views brukes for å representere tilstanden til GUI. Forholdet mellom Model og View er løst koblet og krever en del manuell setup og boilerplate.</aside>
+                        <p>Models og Views</p>
+                        <aside class="notes">Backbone er kanskje det rammeverket flest i BEKK kjenner til fra før. Det er også det rammeverket som har de enkleste og mest minimale abstraksjonene, som gjør det ganske passende for sammenligning med konseptene i FRP.
+
+                        Kort sammendrag av Backbone's primære abstraksjoner for GUI; Models og Views. Models brukes for å representere tilstanden til data, mens Views brukes for å representere tilstanden til GUI. Forholdet mellom Model og View er løst koblet og krever en del manuell setup og boilerplate.</aside>
                     </section>
                     <section>
                         <h3>Representasjon av data</h3>
@@ -196,34 +201,60 @@
 
                         That being said, det er egentlig ingenting i veien for å kombinere semantikken i Model/View abstraksjonen men en implementasjon som benytter seg av FRP. I bunn og grunn er View og Model bare innkapslinger av et sett med funksjonalitet som tilsammen utgjør en komponent.</aside>
                     </section>
-
+                </section>
+                <section>
                     <section>
-                        <section>
-                            <h2>Abstraksjonsammenligning: Knockout.js</h2>
-                        </section>
-                        <section>
-                            <h3>Representasjon av data</h3>
-                            <p>ViewModel vs Adferd</p>
-                            <aside class="notes"></aside>
-                        </section>
-                        <section>
-                            <h3>Representasjon av interaksjon</h3>
-                            <p>View vs Hendelse</p>
-                            <aside class="notes"></aside>
-                        </section>
-                        <section>
-                            <h3>Abstraksjonsammenligning</h3>
-                            <p>Oppsummering</p>
-                            <aside class="notes"></aside>
-                        </section>
+                        <h2>Abstraksjonsammenligning: Knockout.js</h2>
+                        <p>ViewModel og View</p>
+                        <aside class="notes">Knockout er et annet biblotek som gir abstraksjoner i samme gate som Backbone. Knockout er også ganske velkjent i BEKK og har den samme karakteristikken som Backbone at abstraksjonene er enkle og minimale. Det som gjør Knockout spesielt interessant i dette tilfellet er at det er laget for å gjøre GUI design deklarativt, akkurat som FRP.
+
+                        Knockout har to sentrale komponenter, ViewModel og View. ViewModel er innkapsling av data og eksponering av et API for å konsumere data. View er en template med deklarative bindinger til en ViewModel.</aside>
                     </section>
-
                     <section>
-                        <h3>Angular.js?</h3>
-                        <aside class="notes">Har valgt å ikke sammenligne med Angular.js, mest fordi de bitene av angular som overlapper mest med FRP stort sett er de samme som i Knockout; deklarative bindinger mot data og deklarative event-lyttere.</aside>
+                        <h3>Representasjon av data</h3>
+                        <p>ViewModel vs Adferd</p>
+                        <aside class="notes">ViewModels er, som Backbones Models, laget for å innkapsle data og gjøre dem tilgjengelige for konsum i applikasjonen. ViewModelen er den eneste komponenten i Knockout som har en intern tilstand. Alle tilstandsendringer i en Knockout-app går gjennom en ViewModel.
+
+                        Det som muliggjør Knockouts deklarative tilnærming til GUI design er konseptet om observables. Observables er veldig like FRPs Adferder på den måten at de automatisk varsler de som avhenger av en selv. Knockouts 
+
+                        Observables kan også komponeres, på samme måte som FRPs Adferder, men ikke funksjonelt som i FRP. Og komposisjonsmulighetene er en del mer begrenset, siden du bare har ko.computed().
+
+                        Avansert interaksjon foregår også til dels i ViewModels, i form av tilstandsendringer og enkle operasjoner, og tildels utenfor Knockout, i form av event-lyttere
+
+                        Det er mulig å nøste ViewModels, og på den måten komponere mer komplekse ViewModels og beholde innkapsling. Gjenbruk på tvers av ViewModels gjøres ved å utvide base-typene med ny funksjonalitet.</aside>
+                    </section>
+                    <section>
+                        <h3>Representasjon av interaksjon</h3>
+                        <p>View vs Hendelse</p>
+                        <aside class="notes">Et View i Knockout er egentlig en template med deklarative bindinger mot en underliggende ViewModel. Alle former for interaksjon vil derfor gå via ViewModel'en og dens observables.
+
+                        Sammenlignet med Hendelser i FRP, som er obsverables i seg selv, så blir Views ganske stusslige. Hendelser gjør at man kan komponere avansert  interaksjon uten å måtte gå veien om den bakenforliggende ViewModel'en og samtidig beholde deklarativiteten.
+
+                        Den kanskje største forskjellen på Hendelser og Views er at deklarativiteten lever i javascript kontra i templates, hvilket gir mye mer frihet og muligheter.</aside>
+                    </section>
+                    <section>
+                        <h3>Abstraksjonsammenligning</h3>
+                        <p>Oppsummering</p>
+                        <aside class="notes">Til forskjell fra Backbone sammenligningen så er Knockouts abstraksjoner mye mer implementasjonsspesifike og det blir vanskelig å kombinere FRP med knockouts abstraksjoner. 
+
+                        Knockout deklarativitet gjør at det er mye mindre boilerplate og setup for å få ting til å henge sammen, men komposisjonsmulighetene er begrenset.</aside>
                     </section>
                 </section>
 
+                <section class="form-example">
+                    <section>
+                        <h2>Eksempel: Ufylling av skjema</h2>
+                    </section>
+                    <section>
+                        <h3>Funksjonalitet i eksempelet</h3>
+                        <ul>
+                            <li>Fylle skjema med serverdata</li>
+                            <li>Validere enkelt-inputs</li>
+                            <li>Validere hele skjemaet</li>
+                            <li>Sende tilbake til server</li>
+                        </ul>
+                    </section>
+                </section>
 
                 <section class="vote-example">
                     <section><h2>Eksempel med WebSockets og flere klienter.</h2></section>
