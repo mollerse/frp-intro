@@ -8,6 +8,10 @@
 
         <link rel="stylesheet" href="./css/reveal.min.css">
         <link rel="stylesheet" href="./css/theme/night.css">
+        <link rel="stylesheet" href="./css/main.css">
+
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/bacon.js"></script>
     </head>
 
     <body>
@@ -73,12 +77,30 @@
                         <h3>Et eksempel på reaktiv data kan være et regneark og summen av to tall.</h3>
                     </section>
                     <section>
-                        <input type="number" id="a"/>
-                        <input type="number" id="b"/>
-                        <input type="number" id="sum"/>
+
+                        <div class="dataflow-example">
+                            <input type="number" id="a" value="3" class="node-a"/>
+                            <input type="number" id="b" value="2" class="node-b"/>
+                            <input type="text" id="sum" value="0" disabled="" class="node-result"/>
+                        </div>
 
                         <script>
-                        // implement data flow example
+                            (function () {
+                                var _add = function (a, b) { return a + b; },
+                                    _value = function (e) { return  e.currentTarget.value; },
+                                    getInputAsProperty = function (id) {
+                                        var $el = $(id);
+                                        return $el.asEventStream("change")
+                                                  .map(_value)
+                                                  .toProperty($el.val())
+                                                  .map(Number);
+                                    };
+
+                                var $a = getInputAsProperty("#a"),
+                                    $b = getInputAsProperty("#b");
+
+                                $a.combine($b, _add).assign($("#sum"), "val");
+                            })();
                         </script>
                     </section>
                 </section>
