@@ -131,7 +131,100 @@
                     </section>
                 </section>
 
-                <section><h1>STIAN SIN DEL</h1></section>
+                <section>
+                    <section>
+                        <h2>FRP i frontend</h2>
+                    </section>
+                    <section>
+                        <h3>Reaktivt</h3>
+                        <p>Representasjon og oppdatering av elementer.</p>
+                        <aside class="notes">Siden GUIer er naturlig tilstandsfulle trenger vi noe som kan representere den tilstanden og tillate oss å endre den. Reaktiv programmering gir oss datatyper for å representere elementene i GUIet vårt.
+
+                        Den praktiske effekten av dette er at vi ikke trenger å manuelt endre tilstanden til elementer. Og vi får første-klasses datatyper til å representere elementer og forhold dem i mellom.</aside>
+                    </section>
+                    <section>
+                        <h3>Funksjonelt</h3>
+                        <p>Men med side-effekter</p>
+                        <aside class="notes">Purely-functional tillater ikke side-effects. Men, siden vi benytter oss av reaktiv programmering så vil de reaktive data-typene håndtere side-effectene for oss slik at vi kan programmere i en funksjonell verden uten at side-effektene påvirker oss.
+
+                        Dette gjør oss i stand til å benytte funksjonell programmering til å komponere forhold mellom GUI elementer og transformere data.</aside>
+                    </section>
+                    <section>
+                        <h3>Deklarativt</h3>
+                        <p>Spør heller hva enn hvordan</p>
+                        <aside class="notes">Når vi kombinerer funksjonell og reaktiv programmering gir det oss muligheten til å gjøre koden deklarativ. Vi ikke trenger å gjøre noen manuelle side-effekter og kan derfor heller fokusere på hva vi ønsker å oppnå enn hvordan vi ønsker å oppnå det.
+
+                        Dette gjør at vi bare trenger å assigne representasjonen av en adferd eller hendelse en gang. Hver gang vi lager en representasjon av enten en adferd eller hendelse eller en kombinasjon av flere så endrer vi ikke på den orginale representasjonen. Dette gjør oss i stand til å lage så mange representasjoner som vi har behov for.</aside>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>Abstraksjonsammenligning: Backbone.js</h2>
+                    </section>
+                    <section>
+                        <h3>Models og Views</h3>
+                        <aside class="notes">Kort sammendrag av Backbone's primære abstraksjoner for GUI; Models og Views. Models brukes for å representere tilstanden til data, mens Views brukes for å representere tilstanden til GUI. Forholdet mellom Model og View er løst koblet og krever en del manuell setup og boilerplate.</aside>
+                    </section>
+                    <section>
+                        <h3>Representasjon av data</h3>
+                        <p>Models vs Adferder</p>
+                        <aside class="notes">
+                        I Backbone så representeres data som en modell. Den primære funksjonen til en modell her er å kunne abstrahere vekk intern tilstand og varsle om relevante endringer i intern tilstand. Den interne tilstanden er veldig fleksibel og Bacbone legger ingen føringer på det.
+
+                        FRP representerer data som en adferd. For at FRP skal kunne representere data er man avengig av å ha en kilde som kan produsere data, feks ajax eller noe som representerer en konstant verdi. Adferder kan kombineres og på den måten kan du representere sammensatte data.
+
+                        Siden en adferd alltid har en verdi kan man tilordne dem til et element og på den måten gjøre verdien synlig i grensesnittet. Og siden adferder er reaktive sørger det for at den synlige biten i grensesnittet alltid er oppdatert med verdien til adferden.
+
+                        Ser man på APIet som eksponeres, så er det ikke så stor forskjell på de to abstraksjonene. Begge abstraksjonene kommuniserer ved hjelp av events, forskjellen ligger i hvordan events blir håndtert av mottaker. I FRP så vil den reaktive stilen sørge for at andre som avhenger av adferden oppdaterer seg selv, mens i Bacbone så må en håndtere det manuelt selv.</aside>
+                    </section>
+                    <section>
+                        <h3>Representasjon av interaksjon</h3>
+                        <p>View vs Hendelse</p>
+                        <aside class="notes">
+                            Views i backbone er en innkapsling av funksjonalitet knyttet til en bit av grensesnittet. Koblingen mot GUIet er ganske løs og består hovedsaklig av event-lyttere og en template-funksjon som interpolerer data med markup. For å få avansert interaksjon kan man benytte en modell til å holde data eller ha en intern state i viewet.
+
+                            Views kan kombineres ved nøsting for å innkapsle ytterligere og på den måten oppnå mer avansert funksjonalitet. Man har også mulighet for arv for å dele funksjonalitet, men arv har sine begrensninger og det kan føre til økt kompleksitet eller brudd på DRY.
+
+                            I FRP så bruker man hendelser, diskrete hendelser i tid, til å representere de elementene som reagerer på interaksjon med grensesnittet. I FRP er det ikke hendelser som er direkte ansvarlig for å gjøre data synlig i grensesnittet, men hendelser kan fortsatt styre når eller hvordan oppdateringen skjer.
+
+                            For å skape mer avansert interaksjon kan man i FRP komponere hendelser funksjonellt. At du hele tiden benytter deg av de reaktive datatypene gir deg en felles interface og at du ikke har noen intern tilstand i en hendelse gjør at du har mye friere tøyler når det kommer til gjenbruk av funksjonalitet.</aside>
+                    </section>
+                    <section>
+                        <h3>Abstraksjonsammenligning</h3>
+                        <p>Oppsummering</p>
+                        <aside class="notes">FRP tilbyr minimale byggestener for å komponere mer avanserte strukturer for både interaksjon og data. Mens model og view legger seg på et høyre abstraksjonsnivå  og legger opp til mer manuell sammenkobling av GUI og kode. FRP er deklarativt, mens Model/View er imperativt.
+
+                        Komposisjonsmulighetene er kanskje den største forskjellen mellom FRP og Model/View-abstraksjonen. I FRP gjør man funksjonell komponering. Fordi man har en universell interface i de reaktive datatypene kan man gjenbruke funksjoner på tvers av alt. I Model/View, som stort sett er objekt orientert, komponerer man ved å nøste (has-a) eller arve (is-a). Dette begrenser potensialet for gjenbruk til ting du kan utrykke med de forholdene.
+
+                        That being said, det er egentlig ingenting i veien for å kombinere semantikken i Model/View abstraksjonen men en implementasjon som benytter seg av FRP. I bunn og grunn er View og Model bare innkapslinger av et sett med funksjonalitet som tilsammen utgjør en komponent.</aside>
+                    </section>
+
+                    <section>
+                        <section>
+                            <h2>Abstraksjonsammenligning: Knockout.js</h2>
+                        </section>
+                        <section>
+                            <h3>Representasjon av data</h3>
+                            <p>ViewModel vs Adferd</p>
+                            <aside class="notes"></aside>
+                        </section>
+                        <section>
+                            <h3>Representasjon av interaksjon</h3>
+                            <p>View vs Hendelse</p>
+                            <aside class="notes"></aside>
+                        </section>
+                        <section>
+                            <h3>Abstraksjonsammenligning</h3>
+                            <p>Oppsummering</p>
+                            <aside class="notes"></aside>
+                        </section>
+                    </section>
+
+                    <section>
+                        <h3>Angular.js?</h3>
+                        <aside class="notes">Har valgt å ikke sammenligne med Angular.js, mest fordi de bitene av angular som overlapper mest med FRP stort sett er de samme som i Knockout; deklarative bindinger mot data og deklarative event-lyttere.</aside>
+                    </section>
+                </section>
 
 
                 <section class="vote-example">
@@ -218,6 +311,7 @@
                 <section>
                     <section><h2>Takk for oss!</h2></section>
                     <section><h1>Spørsmål?</h1></section>
+
                 </section>
             </div>
 
