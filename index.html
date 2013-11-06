@@ -9,9 +9,13 @@
         <link rel="stylesheet" href="./css/reveal.min.css">
         <link rel="stylesheet" href="./css/theme/night.css">
         <link rel="stylesheet" href="./css/main.css">
+        <link rel="stylesheet" href="./css/vote-example.css">
+        <link rel="stylesheet" href="./css/monokai-sublime.css">
+
 
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/bacon.js"></script>
+        <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     </head>
 
     <body>
@@ -87,7 +91,7 @@
                         <script>
                             (function () {
                                 var _add = function (a, b) { return a + b; },
-                                    _value = function (e) { return  e.currentTarget.value; },
+                                    _value = function (e) { return e.currentTarget.value; },
                                     getInputAsProperty = function (id) {
                                         var $el = $(id);
                                         return $el.asEventStream("change")
@@ -126,6 +130,95 @@
                         <h3>I FRP blir hendelser og adferder behandlet som sekvenser og kan bli håndtert på en funksjonell måte.</h3>
                     </section>
                 </section>
+
+                <section><h1>STIAN SIN DEL</h1></section>
+
+
+                <section class="vote-example">
+                    <section><h2>Eksempel med WebSockets og flere klienter.</h2></section>
+                    <section><h3>Vi skal lage et enkelt system for spørreundersøkelser basert på WebSockets.</h3></section>
+                    <section>
+                        <pre><code data-trim>var socketStream =
+    Bacon.fromEventTarget(socket, "vote")</code></pre>
+                    </section>
+                    <section>
+                        <pre><code data-trim>var totalVoteProperty = function (id) {</code></pre>
+                        <pre class="fragment"><code>    return socketStream</code></pre>
+                        <pre class="fragment"><code>        .filter(_isId(id))</code></pre>
+                        <pre class="fragment"><code>        .map(1)</code></pre>
+                        <pre class="fragment"><code>        .scan(0, _add);</code></pre>
+                        <pre><code>};</code></pre>
+                    </section>
+
+                    <section>
+
+                        <pre><code data-trim>var percentage = function (stream, total) {</code></pre>
+                        <pre><code class="fragment">    return stream</code></pre>
+                        <pre><code class="fragment">            .combine(total, _toPercentage);</code></pre>
+                        <pre><code data-trim>};</code></pre>
+                    </section>
+
+                    <section>
+                        <pre><code data-trim>var sum = socketStream.map(1).scan(0, _add);</code></pre>
+                    </section>
+
+                    <section>
+                        <pre><code data-trim>[1, 2, 3].forEach(function (id) {</code></pre>
+                        <pre><code class="fragment" data-fragment-index="1">  return percentage(</code></pre>
+                        <pre><code class="fragment" data-fragment-index="1">    totalVoteProperty("alt" + id), sum)</code></pre>
+                        <pre><code class="fragment">        .assign($("#alt" + id), "val");</code></pre>
+                        <pre><code data-trim>});</code></pre>
+                    </section>
+
+                    <section><h2>Demo</h2></section>
+
+                    <section>
+                        <h3>Her er det et spørsmål som er stilt, og det kan potensielt være langt?</h3>
+                        <progress max="100" id="alt1" value="0" data-skill="Ett alternativ her" class="progress-red"></progress>
+                        <progress max="100" id="alt2" value="0" data-skill="Et annet alternativ som er lengre" class="progress-yellow"></progress>
+                        <progress max="100" id="alt3" value="0" data-skill="Noe slags opplegg her og..." class="progress-green"></progress>
+
+                        <h4>Avgi din stemme på: <a href="#">bit.ly/NOEHER</a></h4>
+
+                        <script>
+                        (function () {
+                            var socket = new io.connect(),
+                                socketStream = Bacon.fromEventTarget(socket, "vote"),
+                                _isId = function (id) {
+                                    return function (data) {
+                                        return data === id;
+                                    };
+                                },
+                                _add = function (a, b) {
+                                    return a + b;
+                                },
+                                _toPercentage = function (value, sum) {
+                                    return sum === 0 ? 0 : (value / sum) * 100;
+                                };
+
+                            var totalVoteProperty = function (id) {
+                                return socketStream.filter(_isId(id)).map(1).scan(0, _add);
+                            };
+
+                            var percentage = function (stream, total) {
+                                return stream.combine(total, _toPercentage);
+                            };
+
+                            var sum = socketStream.map(1).scan(0, _add);
+
+                            [1, 2, 3].forEach(function (id) {
+                                percentage(totalVoteProperty("alt" + id), sum)
+                                    .assign($("#alt" + id), "val");
+                            });
+                        }());
+                        </script>
+                    </section>
+                </section>
+
+                <section>
+                    <section><h2>Takk for oss!</h2></section>
+                    <section><h1>Spørsmål?</h1></section>
+                </section>
             </div>
 
         </div>
@@ -142,8 +235,9 @@
                 center: true,
                 dependencies: [
                     { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; }},
-                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-                ]
+                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+                    ]
             });
 
         </script>

@@ -1,0 +1,23 @@
+{
+  "name": "frp-intro",
+  "version": "0.0.1",
+  "description": "A presentation of Functional Reactive Programming",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mollerse/frp-intro.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mollerse/frp-intro/issues"
+  },
+  "dependencies": {
+    "ecstatic": "~0.4.12",
+    "socket.io": "~0.9.16"
+  }
+}
