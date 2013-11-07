@@ -93,15 +93,23 @@
                     <section><h2>Reaktiv programmering</h2></section>
                     <section>
                         <h3>Kan beskrives som en metode for å holde systemet kontinuerlig oppdatert med omgivelsene.</h3>
-                        <aside class="notes"></aside>
+                        <aside class="notes">
+                            <p>Kalles ofte dataflyt (dataflow) programmering.</p>
+                        </aside>
                     </section>
                     <section>
                         <h3>En måte for data å reagere på endringer og oppdatere for å reflektere disse endringene.</h3>
-                        <aside class="notes"></aside>
+                        <aside class="notes">
+                            <p>Gitt at du har variabeler med avhengigheter (f.eks c = a * b), dersom A endres, vil endringene propagere i dataflyt grafen og oppdatere de verdiene som er avhengig av variabel A (i dette tilfellet verdien C).</p>
+                            <p>Det kan være flere nivå av avhengigheter og komplekse dataflyt grafer.</p>
+                        </aside>
                     </section>
                     <section>
                         <h3>Et eksempel på reaktiv data kan være et regneark og summen av to tall.</h3>
-                        <aside class="notes"></aside>
+                        <aside class="notes">
+                            <p>I Excel, om en har 5 verdier i kolonne A, og en celle som har SUM(A1:A5), vil summen oppdateres dersom en av cellene i kolonne A blir endret.</p>
+                            <p>Dette er enkle eksempler på reaktivitet, men det kan også brukes i større komplekse sammenhenger, særlig med brukerinteraksjoner og animasjoner.</p>
+                        </aside>
                     </section>
                     <section>
 
