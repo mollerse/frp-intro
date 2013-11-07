@@ -1,11 +1,24 @@
 var http = require('http');
 var ecstatic = require('ecstatic');
 
-var server = http.createServer(ecstatic({
+var staticd = ecstatic({
     root: __dirname,
     autoIndex: true,
     gzip: true
-}));
+});
+
+var server = http.createServer(function(req, res) {
+    if(/^\/records$/.test(req.url) && req.method == 'GET') {
+        res.setHeader('content-type', 'application/json');
+        return fs.createReadStream(__dirname+"/records.json").pipe(res);
+    }
+    if(/^\/records$/.test(req.url) && req.method == 'POST') {
+        res.setHeader('content-type', 'application/json');
+        return req.pipe(res);
+    }
+    return staticd(req, res);
+});
+
 var io = require('socket.io').listen(server);
 
 function getRandomInt (min, max) {
