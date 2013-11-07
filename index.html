@@ -182,16 +182,13 @@
                         </aside>
                     </section>
                 </section>
-
-                <section>
-                    <h2>FRP i frontend</h2>
-                </section>
                 <section>
                     <section>
-                        <h2>Reaktive datatyper</h2>
+                        <h2>FRP i frontend</h2>
                     </section>
                     <section>
-                        <h3>Representasjon av tilstand</h3>
+                        <h3>Reaktive datatyper</h3>
+                        <p>Representasjon av tilstand</p>
                         <aside class="notes">
                             Siden GUIer er naturlig tilstandsfulle trenger vi noe som kan representere den tilstanden og tillate oss å endre den. Reaktiv programmering gir oss datatyper for å representere tilstanden elementene i GUIet vårt. Til forskjell fra det velkjente MVC-konseptet så dreier representasjon i FRP seg mer om å dele ting opp i enkeltelementer kontra sammensatte kompoenenter.
 
@@ -218,11 +215,6 @@
                             Siden MVC-Model egentlig ikke legger noen føringer på implementasjonsdetaljer så er det ingenting i veien for å realisere konseptet som sammensatte reaktive datatyper. Da blir MVC-Modelen også en reaktiv datatype. Og man oppnår den samme avgrensningen av funksjonalitet, dog uten innkapslingen.
                         </aside>
                     </section>
-                </section>
-                <section>
-                    <section>
-                        <h2>Funksjonelt</h2>
-                    </section>
                     <section>
                         <h3>GUI uten bi-effekter?</h3>
                         <p>Selvfølgelig, reaktive datatyper fikser biffen</p>
@@ -243,17 +235,6 @@
                         <p>Keeping it DRY</p>
                         <aside class="notes">
                             At du hele tiden benytter deg av de reaktive datatypene som ikke har noen intern tilstand i en hendelse gjør at du har mye friere tøyler når det kommer til gjenbruk av funksjonalitet. Du slipper å strukturere gjenbruk som et resultat av forhold mellom objekter, typiske is-a eller has-a forhold.
-                        </aside>
-                    </section>
-                </section>
-                <section>
-                    <section>
-                        <h3>Deklarativt</h3>
-                        <p>Spør heller hva enn hvordan</p>
-                        <aside class="notes">
-                            Når vi kombinerer funksjonell og reaktiv programmering gir det oss muligheten til å gjøre koden deklarativ. Vi ikke trenger å gjøre noen manuelle side-effekter og kan derfor heller fokusere på hva vi ønsker å oppnå enn hvordan vi ønsker å oppnå det.
-
-                            Dette gjør at vi bare trenger å definere en representasjon av en adferd eller hendelse en gang. Hver gang vi lager en kombinasjon av flere adferder eller hendelser så endrer vi ikke på den orginale representasjonen. Dette gjør oss i stand til å definere så mange representasjoner som vi har behov for. Og vi trenger bare definere representasjonen en gang.
                         </aside>
                     </section>
                     <section>
@@ -277,8 +258,7 @@
                             Reaktivt? Ja. Funksjonellt? Nei.
                         </aside>
                     </section>
-                </section>
-                <section>
+                    <section>
                     <h2>FRP i frontend</h2>
                     <p>Oppsummering</p>
                     <ul>
@@ -290,6 +270,7 @@
                         Du har to reaktive datatyper; hendelser og adferder. Avansert funksjonalitet oppnåes ved å kombinere adferder og hendelser i større og mer komplekse strukturer med funksjonell komposisjon. Komponenter i GUIet representeres som en slik reaktiv datatype og får dermed dra nytte av de reaktive egenskapene med automatisk propagering av tilstandsendringer.
                     </aside>
                 </section>
+            </section>
 
                 <section>
                     <section>
