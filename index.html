@@ -172,7 +172,7 @@
                         </aside>
                     </section>
                     <section>
-                        <h3>I FRP blir adferder og hendelser behandlet som sekvenser og kan bli håndtert på en funksjonell måte.</h3>
+                        <h4>I FRP blir adferder og hendelser behandlet som sekvenser og kan bli håndtert på en funksjonell måte.</h4>
 
                         <aside class="notes">
                             <p>F.eks med bruken av "map", "reduce" eller "filter".</p>
@@ -312,6 +312,15 @@
                     <section><h2>Eksempel med WebSockets og flere klienter.</h2></section>
                     <section><h3>Vi skal lage et enkelt system for spørreundersøkelser basert på WebSockets.</h3></section>
                     <section>
+                        <h3>Vi må gjøre følgende</h3>
+                        <ul>
+                            <li class="fragment">Koble til og hente verdier ut fra WebSockets.</li>
+                            <li class="fragment">Dersom vi får gyldig verdi fra WS, summere opp stemmene.</li>
+                            <li class="fragment">Bruke totale stemmer og indeviduelle stemmer til å regne ut prosent.</li>
+                            <li class="fragment">Representere resultatet i grensesnittet.</li>
+                        </ul>
+                    </section>
+                    <section>
                         <pre><code data-trim>var socketStream =
     Bacon.fromEventTarget(socket, "vote")</code></pre>
                     </section>
@@ -322,26 +331,52 @@
                         <pre class="fragment"><code>        .map(1)</code></pre>
                         <pre class="fragment"><code>        .scan(0, _add);</code></pre>
                         <pre><code>};</code></pre>
+                        <aside class="notes">
+                            <p>Vi skal finne totale antall stemmer et alternativ får.</p>
+                            <p>Med å kjøre filter med predikatet <code>_isId</code>, får vi ut en hendelse som kun gjelder for alternativet med gitt ID.</p>
+                            <p>Vi gjør om hendelsen til å kun ha verdier som er 1. Det vil si at hver gang hendelsen inntreffer, vil vi få verdien 1.</p>
+                            <p>Scan som er nesten som reduce, bare at den gir melding hver gang den oppdateres. Reduce ville kun ha gitt en verdi når det ikke kommer flere verdier (WebSocketen hadde avsluttet). Når vi bruker scan her, og gir en initiell verdi på 0 og _add som transformator, vil resultatet være den totale summen.</p>
+                            <p>Vi sitter igjen med en adferd som inneholder summen av stemmer for et alternativ med en gitt ID.</p>
+                        </aside>
                     </section>
 
                     <section>
-
-                        <pre><code data-trim>var percentage = function (stream, total) {</code></pre>
-                        <pre><code class="fragment">    return stream</code></pre>
+                        <pre><code data-trim>var percentage
+    = function (numVotes, total) {</code></pre>
+                        <pre><code class="fragment">    return numVotes</code></pre>
                         <pre><code class="fragment">            .combine(total, _toPercentage);</code></pre>
                         <pre><code data-trim>};</code></pre>
+
+                        <aside class="notes">
+                            <p>Ettersom vi skal vise prosentvis fordeling av alle alternativene, må ha en måte å regne det ut på.</p>
+                            <p>Vi starter med antallet stemmer til et alternativ.</p>
+                            <p><code>Combine</code> vil kombinere de to siste verdiene på begge kildene ved hjelp av en første ordens funksjon.</p>
+                            <p>Om vi kombinerer antall stemmer på et alternativ med totale mengden stemmer og kjører prosentregning på den, har vi prosenten på antall stemmer til et gitt alternativ.</p>
+                            <p>Det vi sitter igjen med etter dette er en adferd med prosenten til et alterantiv.</p>
+                        </aside>
                     </section>
 
                     <section>
                         <pre><code data-trim>var sum = socketStream.map(1).scan(0, _add);</code></pre>
+                        <aside class="notes">
+                            <p>For å finne den totale mengden stemmer, kan vi gjøre det på samme måten som vi har gjort på individuelle alternativer, bare uten filtreringen.</p>
+                        </aside>
                     </section>
 
                     <section>
-                        <pre><code data-trim>[1, 2, 3].forEach(function (id) {</code></pre>
+                        <pre><code data-trim>["alt1", "alt2", "alt3"].forEach(
+    function (id) {</code></pre>
                         <pre><code class="fragment" data-fragment-index="1">  return percentage(</code></pre>
-                        <pre><code class="fragment" data-fragment-index="1">    totalVoteProperty("alt" + id), sum)</code></pre>
-                        <pre><code class="fragment">        .assign($("#alt" + id), "val");</code></pre>
+                        <pre><code class="fragment" data-fragment-index="1">    totalVoteProperty(id), sum)</code></pre>
+                        <pre><code class="fragment">        .assign($("#" + id), "val");</code></pre>
                         <pre><code data-trim>});</code></pre>
+
+                        <aside class="notes">
+                            <p>For å samle det hele, begynner vi med å iterere vi over ID-ene til de tre alternativene.</p>
+                            <p>Vi ønsker å finne prosenten av den totale stemme-antallet for alternativ "ID" ut i fra den totale summen.</p>
+                            <p>Vi vil sette denne prosenten til på DOM-elementet gitt av ID.</p>
+                            <p>Det er det som trengs. Og vi har nå et fiks ferdig sanntids polling-system!</p>
+                        </aside>
                     </section>
 
                     <section><h2>Demo</h2></section>
@@ -380,9 +415,9 @@
 
                             var sum = socketStream.map(1).scan(0, _add);
 
-                            [1, 2, 3].forEach(function (id) {
-                                percentage(totalVoteProperty("alt" + id), sum)
-                                    .assign($("#alt" + id), "val");
+                            ["alt1", "alt2", "alt3"].forEach(function (id) {
+                                percentage(totalVoteProperty(id), sum)
+                                    .assign($("#" + id), "val");
                             });
                         }());
                         </script>
@@ -412,7 +447,7 @@
                     { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; }},
                     { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
                     { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-                    ]
+                ]
             });
 
         </script>
