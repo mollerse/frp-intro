@@ -565,16 +565,16 @@
                     <section><h2>Demo</h2></section>
 
                     <section>
-                        <h3>Her er det et spørsmål som er stilt, og det kan potensielt være langt?</h3>
-                        <progress max="100" id="alt1" value="0" data-skill="Ett alternativ her" class="progress-red"></progress>
-                        <progress max="100" id="alt2" value="0" data-skill="Et annet alternativ som er lengre" class="progress-yellow"></progress>
-                        <progress max="100" id="alt3" value="0" data-skill="Noe slags opplegg her og..." class="progress-green"></progress>
+                        <h3>Hva er din politiske hjertesak?</h3>
+                        <progress max="100" id="alt1" value="0" data-skill="Æ vil ha belli sprit!" class="progress-red"></progress>
+                        <progress max="100" id="alt2" value="0" data-skill="Bygg et sperret asylmottak i utlandet." class="progress-yellow"></progress>
+                        <progress max="100" id="alt3" value="0" data-skill="Grav etter mer penger i Lofoten!" class="progress-green"></progress>
 
-                        <h4>Avgi din stemme på: <a href="#">bit.ly/NOEHER</a></h4>
+                        <h4>Avgi din stemme på: <a href="http://frp.herokuapp.com">http://frp.herokuapp.com</a></h4>
 
                         <script>
                         (function () {
-                            var socket = new io.connect(),
+                            var socket = new io.connect("ws://frp.herokuapp.com:80/"),
                                 socketStream = Bacon.fromEventTarget(socket, "vote"),
                                 _isId = function (id) {
                                     return function (data) {
