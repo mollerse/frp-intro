@@ -82,7 +82,7 @@
                         <h4 class="fragment">Eksempler på språk kan være Lisp, Haskell, Scala, men også JavaScript</h4>
                         <aside class="notes">
                             <p>Map tar inn et en sekvens og en høyere ordens funksjon, returnerer en ny sekvens der alle elementer i sekvensen er blitt kjørt via innsendt funksjon.</p>
-                            <p>Reduce kjører rekursivt over en sekvens og evaluerer en høyere ordens funksjon som tar inn resultatet fra forrige kjøring og gjeldene element i sekvensen.</p>
+                            <p>Reduce kjører rekursivt over en sekvens og evaluerer en høyere ordens funksjon som tar inn resultatet fra forrige kjøring og gjeldene element i sekvensen. Ved første iterasjon vil verdien fra første kjøring være satt til en initiell verdi.</p>
                             <p>Filter vil og kjøres rekursivt og ta inn en sekvens og et predikat (predikat kan forklares som noe som returnerer true/false basert på argumenter) og returnerer en ny sekvens kun med de elementene som oppfyller predikatet.</p>
 
                             <p>Ikke alle språkene er 100% funksjonelle, da de tillater mutable objekter og bieffekter, men kan brukes funksjonelt og har støtte for første-klasses høyere-ordens funksjoner.</p>
@@ -148,17 +148,38 @@
                             <li>Behaviours (Adferd)</li>
                             <li>Events (Hendelse)</li>
                         </ol>
+                        <aside class="notes">
+                            <p>Adferder og hendelser er to forskjellige kilder av informasjon som vi skal se på litt nærmere.</p>
+                        </aside>
                     </section>
                     <section>
                         <h3>Adferder</h3>
                         <p>En kontinuerlig verdi. Eksemeplvis klokken, høyde eller vektorgrafikk.</p>
+
+                        <aside class="notes">
+                            <p>En adferd vil alltid ha en verdi. Det er noe som er kontinuerlig, og som er målbart.</p>
+                            <p>Selv om en adferd har en kontinuerlig verdi kan den måles/observeres til å ha en spesifikk verdi.</p>
+                            <p>F.eks selv om høyden min aldri ikke eksisterer (altså er kontinuerlig), kan jeg måle den på nåværende tidspunkt.</p>
+                        </aside>
                     </section>
                     <section>
                         <h3>Hendelser</h3>
                         <p>En diskret verdi. Eksempelvis muse-klikk eller en mengde.</p>
+
+                        <aside class="notes">
+                            <p>Diskrete verdier eksisterer kun når de inntreffer, og i mellomtiden er det ikke eksisterende.</p>
+                            <p>F.eks om en gjør et museklikk vil den ha en verdi (binært 1, i dette tilfellet) i det musen blir klikket, men i det den er ferdig-trykket, vil verdien slutte å eksistere.</p>
+                        </aside>
                     </section>
                     <section>
-                        <h3>I FRP blir hendelser og adferder behandlet som sekvenser og kan bli håndtert på en funksjonell måte.</h3>
+                        <h3>I FRP blir adferder og hendelser behandlet som sekvenser og kan bli håndtert på en funksjonell måte.</h3>
+
+                        <aside class="notes">
+                            <p>F.eks med bruken av "map", "reduce" eller "filter".</p>
+                            <p>Om man bruker "map" på en hendelse, vil et funksjonskall bli kalt på verdien hver gang hendelsen inntreffer. Utfallet etter map vil være en ny hendelse der verdien er transformert.</p>
+                            <p>Om en f.eks bruker "filter", vil en få ut en hendelsessekvens som kun inneholder hendelser som oppfyller predikatet som er sendt inn i filter-kallet.</p>
+                            <p>Med "reduce" vil det som bli returnert være en adferd, ettersom den da alltid vil ha verdier.</p>
+                        </aside>
                     </section>
                 </section>
 
