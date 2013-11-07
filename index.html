@@ -224,8 +224,8 @@
                         <h2>Funksjonell komposisjon</h2>
                     </section>
                     <section>
-                        <h3>GUI uten side-effekter?</h3>
-                        <p>Neida, reaktiv fikser biffen</p>
+                        <h3>GUI uten bi-effekter?</h3>
+                        <p>Selvfølgelig, reaktive datatyper fikser biffen</p>
                         <aside class="notes">
                             Purely-functional tillater ikke side-effects. Men, siden vi benytter oss av reaktiv programmering så vil de reaktive data-typene håndtere side-effectene for oss slik at vi kan forholde oss til en funksjonell verden uten at side-effektene påvirker oss.
 
@@ -319,6 +319,8 @@
                     </section>
                     <section>
                         <h3>Fylle skjemaet med serverdata</h3>
+                    </section>
+                    <section>
                                 <pre><code>var record =
     Bacon.fromPromise($.get('/record'));</code></pre>
                     </section>
@@ -342,6 +344,8 @@
                     </section>
                     <section>
                         <h3>Validere enkelt-inputs</h3>
+                    </section>
+                    <section>
                         <div class="code">
                         <pre class="fragment" data-fragment-index="1"><code>var propertyFromInput = function(field) {</code></pre>
                         <pre class="fragment" data-fragment-index="2"><code>    return Bacon.fromEventTarget(field, 'keyup')</code></pre>
@@ -398,6 +402,8 @@
                     </section>
                     <section>
                         <h3>Sende data tilbake til server</h3>
+                    </section>
+                    <section>
                         <pre class="fragment"><code>var save =
     Bacon.fromEventTarget($("button"), 'click')
         .doAction('.preventDefault');</code></pre>
