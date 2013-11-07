@@ -35,10 +35,10 @@
                 <section>
                     <h2>Agenda</h2>
                     <ol>
-                        <li>Teoretisk introduksjon</li>
-                        <li>FRP i front-end</li>
-                        <li>Bacon.js</li>
-                        <li>Praktiske eksempler og demo</li>
+                        <li class="fragment">Teoretisk introduksjon</li>
+                        <li class="fragment">FRP i front-end</li>
+                        <li class="fragment">Bacon.js</li>
+                        <li class="fragment">Praktiske eksempler og demo</li>
                     </ol>
                 </section>
 
@@ -46,8 +46,8 @@
                     <h3>Hva er Functional Reactive Programming?</h3>
                     <p>Kombinasjonen mellom to paradigmer:</p>
                     <ol>
-                    <li>Funksjonell programmering</li>
-                    <li>Reaktiv programmering</li>
+                        <li>Funksjonell programmering</li>
+                        <li>Reaktiv programmering</li>
                     </ol>
                 </section>
 
@@ -56,29 +56,52 @@
                     <section>
                         <h3>En deklarativ programmeringsparadigme med funksjoner i fokus.</h3>
                         <h4>Unngår tilstander og mutable objekter.</h4>
+                        <aside class="notes">
+                            <p>Handler om hvilken input et system for, i motsetning til hvilken tilstand systemet har. Gitt at input alltid er lik, vil også output bli like - altså rene (pure) funksjoner.</p>
+                            <p>Ettersom funksjonell programmering skal hindre bieffekter, opererer det gjerne med immutable objekter (objekter/verdier som ikke kan endres).</p>
+                        </aside>
                     </section>
                     <section>
                         <h4>Deklarativ programmering forklarer hva som skjer.</h4>
                         <h4>Imperativ programmering forklarer hvordan det skal skje!</h4>
+                        <aside class="notes">
+                            <p>Deklarativ programmering opererer som regel med utrykk (expressions) som kan evalueres til verdier, fremfor erklæringer (statements) som forklarer fremgangsmåte.</p>
+                            <p>Markup som HTML kan sees som deklarativt, ettersom vi definerer hva vi vil ha, ikke hvordan vi skal ha det.</p>
+                            <p>Eksempel: I imperativ programmering ville vi ha iterert over verdier med en for-løkke og endret verdiene i løkke-kroppen. I deklarativ programmering vil vi typisk sende med en første-klasses høyere ordens funksjon (funksjoner som kan sendes som argument til andre funksjoner - høyere ordens funksjoner: funksjoner som kan returnere andre funksjoner) som kjøres rekursivt (head | rest...) over en sekvens og returnerer en ny sekvens med det transformerte innholdet.</p>
+                        </aside>
                     </section>
                     <section>
                         <h3>Unngår uønskede bieffekter</h3>
+                        <aside class="notes">
+                            <p>Der et funksjonskall påvirker systemet på annet måte enn kun det funksjonskallet returnerer.</p>
+                            <p>F.eks endringer på statiske/globale variabler i en funksjon. Dette påvirker systemet/tilstanden til systemet.</p>
+                        </aside>
                     </section>
                     <section>
                         <h3>Vanlig med bruk av blant annet <code>map</code>, <code>reduce</code> og <code>filter</code>.</h3>
-                        <h4>Eksempler på språk kan være Lisp, Haskell, Scala, men også JavaScript</h4>
+                        <h4 class="fragment">Eksempler på språk kan være Lisp, Haskell, Scala, men også JavaScript</h4>
+                        <aside class="notes">
+                            <p>Map tar inn et en sekvens og en høyere ordens funksjon, returnerer en ny sekvens der alle elementer i sekvensen er blitt kjørt via innsendt funksjon.</p>
+                            <p>Reduce kjører rekursivt over en sekvens og evaluerer en høyere ordens funksjon som tar inn resultatet fra forrige kjøring og gjeldene element i sekvensen.</p>
+                            <p>Filter vil og kjøres rekursivt og ta inn en sekvens og et predikat (predikat kan forklares som noe som returnerer true/false basert på argumenter) og returnerer en ny sekvens kun med de elementene som oppfyller predikatet.</p>
+
+                            <p>Ikke alle språkene er 100% funksjonelle, da de tillater mutable objekter og bieffekter, men kan brukes funksjonelt og har støtte for første-klasses høyere-ordens funksjoner.</p>
+                        </aside>
                     </section>
                 </section>
                 <section>
                     <section><h2>Reaktiv programmering</h2></section>
                     <section>
                         <h3>Kan beskrives som en metode for å holde systemet kontinuerlig oppdatert med omgivelsene.</h3>
+                        <aside class="notes"></aside>
                     </section>
                     <section>
                         <h3>En måte for data å reagere på endringer og oppdatere for å reflektere disse endringene.</h3>
+                        <aside class="notes"></aside>
                     </section>
                     <section>
                         <h3>Et eksempel på reaktiv data kan være et regneark og summen av to tall.</h3>
+                        <aside class="notes"></aside>
                     </section>
                     <section>
 
@@ -152,7 +175,7 @@
                     <section>
                         <h3>Deklarativt</h3>
                         <p>Spør heller hva enn hvordan</p>
-                        <aside class="notes">Når vi kombinerer funksjonell og reaktiv programmering gir det oss muligheten til å gjøre koden deklarativ. Vi ikke trenger å gjøre noen manuelle side-effekter og kan derfor heller fokusere på hva vi ønsker å oppnå enn hvordan vi ønsker å oppnå det.
+                        <aside class="notes">Når vi kombinerer funksjonell og reaktiv programmering gir det oss muligheten til å gjøre koden deklarativ. V trenger ikke å gjøre noen manuelle side-effekter og kan derfor heller fokusere på hva vi ønsker å oppnå enn hvordan vi ønsker å oppnå det.
 
                         Dette gjør at vi bare trenger å assigne representasjonen av en adferd eller hendelse en gang. Hver gang vi lager en representasjon av enten en adferd eller hendelse eller en kombinasjon av flere så endrer vi ikke på den orginale representasjonen. Dette gjør oss i stand til å lage så mange representasjoner som vi har behov for.</aside>
                     </section>
@@ -190,7 +213,7 @@
 
                         I FRP så bruker man hendelser, diskrete hendelser i tid, til å representere de elementene som reagerer på interaksjon med grensesnittet. I FRP er det ikke hendelser som er direkte ansvarlig for å gjøre data synlig i grensesnittet, men hendelser kan fortsatt styre når eller hvordan oppdateringen skjer.
 
-                        For å skape mer avansert interaksjon kan man i FRP komponere hendelser funksjonellt. At du hele tiden benytter deg av de reaktive datatypene gir deg en felles interface og at du ikke har noen intern tilstand i en hendelse gjør at du har mye friere tøyler når det kommer til gjenbruk av funksjonalitet.</aside>
+                        For å skape mer avansert interaksjon kan man i FRP komponere hendelser funksjonelt. At du hele tiden benytter deg av de reaktive datatypene gir deg en felles interface og at du ikke har noen intern tilstand i en hendelse gjør at du har mye friere tøyler når det kommer til gjenbruk av funksjonalitet.</aside>
                     </section>
                     <section>
                         <h3>Abstraksjonsammenligning</h3>
@@ -215,7 +238,7 @@
                         <p>ViewModel vs Adferd</p>
                         <aside class="notes">ViewModels er, som Backbones Models, laget for å innkapsle data og gjøre dem tilgjengelige for konsum i applikasjonen. ViewModelen er den eneste komponenten i Knockout som har en intern tilstand. Alle tilstandsendringer i en Knockout-app går gjennom en ViewModel.
 
-                        Det som muliggjør Knockouts deklarative tilnærming til GUI design er konseptet om observables. Observables er veldig like FRPs Adferder på den måten at de automatisk varsler de som avhenger av en selv. Knockouts 
+                        Det som muliggjør Knockouts deklarative tilnærming til GUI design er konseptet om observables. Observables er veldig like FRPs Adferder på den måten at de automatisk varsler de som avhenger av en selv. Knockouts
 
                         Observables kan også komponeres, på samme måte som FRPs Adferder, men ikke funksjonelt som i FRP. Og komposisjonsmulighetene er en del mer begrenset, siden du bare har ko.computed().
 
@@ -235,7 +258,7 @@
                     <section>
                         <h3>Abstraksjonsammenligning</h3>
                         <p>Oppsummering</p>
-                        <aside class="notes">Til forskjell fra Backbone sammenligningen så er Knockouts abstraksjoner mye mer implementasjonsspesifike og det blir vanskelig å kombinere FRP med knockouts abstraksjoner. 
+                        <aside class="notes">Til forskjell fra Backbone sammenligningen så er Knockouts abstraksjoner mye mer implementasjonsspesifike og det blir vanskelig å kombinere FRP med knockouts abstraksjoner.
 
                         Knockout deklarativitet gjør at det er mye mindre boilerplate og setup for å få ting til å henge sammen, men komposisjonsmulighetene er begrenset.</aside>
                     </section>
