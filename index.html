@@ -221,7 +221,7 @@
                 </section>
                 <section>
                     <section>
-                        <h2>Funksjonell komposisjon</h2>
+                        <h2>Funksjonelt</h2>
                     </section>
                     <section>
                         <h3>GUI uten bi-effekter?</h3>
@@ -234,9 +234,8 @@
                     </section>
                     <section>
                         <h3>Funksjonell komposisjon</h3>
-                        <p></p>
                         <aside class="notes">
-                            For å skape mer avansert oppførsel i grensesnittet kan man i FRP komponere de reatkive datatype funksjonellt. Fordelen med at det er så få bestandeler i FRP er at du får et felles grensesnitt mellom komponentene du benytter deg av. Du kan dermed bruke generelle kombinatorer som map, filter og reduce. Dette gjør det blir enklere å sette sammen enkle komponenter som sammen blir til mer en kompleks komponent.
+                            For å skape mer avansert oppførsel i grensesnittet kan man i FRP komponere de reaktive datatype funksjonelt. Fordelen med at det er så få bestandeler i FRP er at du får et felles grensesnitt mellom komponentene du benytter deg av. Du kan dermed bruke generelle kombinatorer som map, filter og reduce. Dette gjør det blir enklere å sette sammen enkle komponenter som sammen blir til mer en kompleks komponent.
                         </aside>
                     </section>
                     <section>
@@ -244,13 +243,6 @@
                         <p>Keeping it DRY</p>
                         <aside class="notes">
                             At du hele tiden benytter deg av de reaktive datatypene som ikke har noen intern tilstand i en hendelse gjør at du har mye friere tøyler når det kommer til gjenbruk av funksjonalitet. Du slipper å strukturere gjenbruk som et resultat av forhold mellom objekter, typiske is-a eller has-a forhold.
-                        </aside>
-                    </section>
-                    <section>
-                        <h3>Templating</h3>
-                        <p>Bruker data transformering</p>
-                        <aside class="notes">
-                            Det er ingen innebygget semantikk for templating i FRP, men du har rådata og muligheten for funksjonelle transformasjoner. Er du istand til å uttrykke templaten din som en funksjon av data og markup, og det er jo allerede sånn de fleste template-motorer allerede fungerer.
                         </aside>
                     </section>
                 </section>
@@ -289,6 +281,11 @@
                 <section>
                     <h2>FRP i frontend</h2>
                     <p>Oppsummering</p>
+                    <ul>
+                        <li class="fragment">Reaktive datatyper</li>
+                        <li class="fragment">Funksjonell komponering</li>
+                        <li class="fragment">Representerer GUI-komponenter med reaktive datatyper</li>
+                    </ul>
                     <aside class="notes">
                         Du har to reaktive datatyper; hendelser og adferder. Avansert funksjonalitet oppnåes ved å kombinere adferder og hendelser i større og mer komplekse strukturer med funksjonell komposisjon. Komponenter i GUIet representeres som en slik reaktiv datatype og får dermed dra nytte av de reaktive egenskapene med automatisk propagering av tilstandsendringer.
                     </aside>
