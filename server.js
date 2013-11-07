@@ -1,5 +1,6 @@
 var http = require('http');
 var ecstatic = require('ecstatic');
+var fs = require('fs');
 
 var staticd = ecstatic({
     root: __dirname,
@@ -8,11 +9,11 @@ var staticd = ecstatic({
 });
 
 var server = http.createServer(function(req, res) {
-    if(/^\/records$/.test(req.url) && req.method == 'GET') {
+    if(/^\/record$/.test(req.url) && req.method == 'GET') {
         res.setHeader('content-type', 'application/json');
-        return fs.createReadStream(__dirname+"/records.json").pipe(res);
+        return fs.createReadStream(__dirname+"/record.json").pipe(res);
     }
-    if(/^\/records$/.test(req.url) && req.method == 'POST') {
+    if(/^\/record$/.test(req.url) && req.method == 'POST') {
         res.setHeader('content-type', 'application/json');
         return req.pipe(res);
     }

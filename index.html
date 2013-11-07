@@ -318,24 +318,173 @@
                         </ul>
                     </section>
                     <section>
+                        <h3>Fylle skjemaet med serverdata</h3>
+                                <pre><code>var record =
+    Bacon.fromPromise($.get('/record'));</code></pre>
+                    </section>
+                    <section>
+                        <div class="code">
+                            <pre class="fragment"><code>record.map('.name')
+        .assign($("#name"), 'val');</code></pre>
+                            <pre class="fragment"><code>record.map('.rank')
+        .assign($("#rank"), 'val');</code></pre>
+                            <pre class="fragment"><code>record.map('.serialnumber')
+        .assign($("#serialnumber"), 'val');</code></pre>
+                        </div>
+                    </section>
+                    <section>
+                        <pre><code>record.onValue(function() {
+    $("input").trigger('keyup');
+});</code></pre>
+                        <aside class="notes">
+                            Fordi DOMen ikke er 100% reaktiv, som bacon.js, må vi tvinge DOMen til å propagere tilstandsendringen videre.
+                        </aside>
+                    </section>
+                    <section>
+                        <h3>Validere enkelt-inputs</h3>
+                        <div class="code">
+                        <pre class="fragment" data-fragment-index="1"><code>var propertyFromInput = function(field) {</code></pre>
+                        <pre class="fragment" data-fragment-index="2"><code>    return Bacon.fromEventTarget(field, 'keyup')</code></pre>
+                        <pre class="fragment" data-fragment-index="3"><code>        .map(value)</code></pre>
+                        <pre class="fragment" data-fragment-index="4"><code>        .toProperty(value());</code></pre>
+                        <pre class="fragment" data-fragment-index="1"><code>}</code></pre>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="code">
+                            <pre><code>var name = propertyFromInput($("#name"));</code></pre>
+                            <pre><code>var rank = propertyFromInput($("#rank"));</code></pre>
+                            <pre><code>var serialnumber = propertyFromInput($("#serialnumber"));</code></pre>
+                        </div>
+                    </section>
+                    <section>
+                        <pre><code>var newRecord = Bacon.combineTemplate({
+    "name": name,
+    "rank": rank,
+    "serialnumber": serialnumber
+});</code></pre>
+                    </section>
+                    <section>
+                        <div class="code">
+                            <pre class="fragment"><code>var validName = name.map(Boolean);</code></pre>
+                            <pre class="fragment"><code>validName.not().assign($("#name + span"), 'toggle');</code></pre>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="code">
+                            <pre class="fragment"><code>var validRank = rank.map(function(r) {
+    var validRanks =  ['Captain', 'Corporal',
+                        'General', 'Private'];
+    return validRanks.indexOf(r) != -1;
+});
+                                </code></pre>
+                            <pre class="fragment"><code>validRank.not().assign($("#rank + span"), 'toggle');</code></pre>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="code">
+                            <pre class="fragment"><code>var validSerialnumber = serialnumber.map(function(s) {
+    return /^\d{5}-\w{3}$/.test(s);
+});
+                                </code></pre>
+                            <pre class="fragment"><code>validSerialnumber.not()
+    .assign($("#serialnumber + span"), 'toggle');</code></pre>
+                        </div>
+                    </section>
+                    <section>
+                        <h3>Validering av hele skjemaet</h3>
+                        <pre><code>validName.and(validRank).and(validSerialnumber).not()
+    .assign($("button"), 'attr', 'disabled');</code></pre>
+                    </section>
+                    <section>
+                        <h3>Sende data tilbake til server</h3>
+                        <pre class="fragment"><code>var save =
+    Bacon.fromEventTarget($("button"), 'click')
+        .doAction('.preventDefault');</code></pre>
+                    </section>
+                    <section>
+                        <div class="code">
+                            <pre class="fragment" data-fragment-index="1"><code>var response = newRecord.sampledBy(save)</code></pre>
+                            <pre class="fragment" data-fragment-index="2"><code>    .flatMapLatest(function(record) {</code></pre>
+                            <pre class="fragment" data-fragment-index="3"><code>        return Bacon.fromPromise($.ajax({
+            "url": "/record",
+            "type": "POST",
+            "data": JSON.stringify(record)
+        }));</code></pre>
+                            <pre class="fragment" data-fragment-index="2"><code>});</code></pre>
+                        </div>
+                    </section>
+
+                    <section>
                         <h2>Demo</h2>
                         <div>
                             <form>
-
                                 <div><label for="name">Name</label></div>
-                                <input id="name" type="text">
+                                <input id="name" type="text"><span style="color: red">!</span>
                                 <div><label for="rank">Rank</label></div>
-                                <input id="rank" type="text">
-                                <div><label for="serialnumber">Serialnumber</label></div>
-                                <input id="serialnumber" type="text">
+                                <input id="rank" type="text"><span style="color: red">!</span>
+                                <div><label for="serialnumber">Serial Number</label></div>
+                                <input id="serialnumber" type="text"><span style="color: red">!</span>
                                 <div>
-                                    <button>Add</button>
+                                    <button style="font-size: larger; margin-top: 1em">Add</button>
                                 </div>
                             </form>
                         </div>
                         <script>
                             (function() {
-                                // fromInput()ajshdakjsdhkjh
+                                var propertyFromInput = function(field) {
+                                    var value = function() {
+                                        return field.val();
+                                    };
+                                    return Bacon.fromEventTarget(field, 'keyup')
+                                        .map(value)
+                                        .toProperty(value());
+                                };
+
+                                var record = Bacon.fromPromise($.get('/record'));
+                                record.map('.name').assign($("#name"), 'val');
+                                record.map('.rank').assign($("#rank"), 'val');
+                                record.map('.serialnumber').assign($("#serialnumber"), 'val');
+                                record.onValue(function() {
+                                    $("input").trigger('keyup');
+                                });
+
+                                var name = propertyFromInput($("#name"));
+                                var rank = propertyFromInput($("#rank"));
+                                var serialnumber = propertyFromInput($("#serialnumber"));
+
+                                var newRecord = Bacon.combineTemplate({
+                                    "name": name,
+                                    "rank": rank,
+                                    "serialnumber": serialnumber
+                                });
+
+                                var validName = name.map(Boolean);
+                                validName.not().assign($("#name + span"), 'toggle');
+
+                                var validRank = rank.map(function(r) {
+                                    var validRanks =  ['Captain', 'Corporal', 'General', 'Private'];
+                                    return validRanks.indexOf(r) != -1;
+                                });
+                                validRank.not().assign($("#rank + span"), 'toggle');
+
+                                var validSerialnumber = serialnumber.map(function(s) {
+                                    return /^\d{5}-\w{3}$/.test(s);
+                                });
+                                validSerialnumber.not().assign($("#serialnumber + span"), 'toggle');
+
+                                validName.and(validRank).and(validSerialnumber).not()
+                                    .assign($("button"), 'attr', 'disabled');
+
+                                var save = Bacon.fromEventTarget($("button"), 'click').doAction('.preventDefault');
+
+                                newRecord.sampledBy(save).flatMapLatest(function(record) {
+                                    return Bacon.fromPromise($.ajax({
+                                        "url": "/record",
+                                        "type": "POST",
+                                        "data": JSON.stringify(record)
+                                    }));
+                                });
                             }());
                         </script>
                     </section>
