@@ -278,9 +278,36 @@
                     <section>
                         <h2>Praktisk FRP</h2>
                         <p>Enter Bacon.js</p>
+                        <aside class="notes">
+                            <p>Bacon.js er et bibliotek for Javascript som har et fabelaktig navn.</p>
+                        </aside>
                     </section>
                     <section>
-                        <h3>Introduksjon til Bacon.js sin implementasjon av FRP konseptene.</h3>
+                        <h3>I Bacon.js har adferd og hendelser andre navn.</h3>
+                        <h4>En adferd kalles en Property og hendelse en EventStream.</h4>
+                    </section>
+                    <section>
+                        <h3>I Bacon.js innkapsler vi datakilder som reaktive datatyper.</h3>
+                        <ul>
+                            <li class="fragment"><code>fromEventTarget</code></li>
+                            <li class="fragment"><code>fromPromise</code></li>
+                            <li class="fragment"><code>from[Node]Callback</code></li>
+                            <li class="fragment">...med flere</li>
+                        </ul>
+                        <aside class="notes">
+                            <p>fromEventTarget baserer seg på "on"-funksjon. Det vil si vi kan ta inn f.eks EventEmitter API-et eller jQuery events.</p>
+                            <p>fromPromise tar inn et objekt fra Promise API-et, f.eks jqHXR (jQuery Ajax kall) eller Node Promises.</p>
+                            <p>fromCallback lager en eventstream fra et callback – kan også brukes i Node.js</p>
+                            <p>En kan også innkapsle f.eks konstanter eller lister, eller f.eks basert på intervall.</p>
+                        </aside>
+                    </section>
+                    <section>
+                        <h3>Alt i Bacon.js er ren javascript.</h3>
+                        <p>I knockout.js er deklarativiteten i markup, og ikke i javascripten.</p>
+
+                        <aside class="notes">
+                            <p>Bacon.js vil altså føre til at javascripten også blir deklarativ.</p>
+                        </aside>
                     </section>
                 </section>
 
