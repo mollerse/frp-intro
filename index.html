@@ -52,12 +52,17 @@
                 </section>
 
                 <section>
-                    <section><h2>Funksjonell programmering</h2></section>
+                    <section>
+                        <h2>Funksjonell programmering</h2>
+                        <aside class="notes">
+                            <p>De fleste her kjenner sikkert til funksjonell programmering av en eller annen grad, men vi skal gå kjapt igjennom hva det er.</p>
+                        </aside>
+                    </section>
                     <section>
                         <h3>En deklarativ programmeringsparadigme med funksjoner i fokus.</h3>
                         <h4>Unngår tilstander og mutable objekter.</h4>
                         <aside class="notes">
-                            <p>Handler om hvilken input et system for, i motsetning til hvilken tilstand systemet har. Gitt at input alltid er lik, vil også output bli like - altså rene (pure) funksjoner.</p>
+                            <p>Handler om hvilken input et system får, i motsetning til hvilken tilstand systemet har. Gitt at input alltid er lik, vil også output bli like - altså rene (pure) funksjoner.</p>
                             <p>Ettersom funksjonell programmering skal hindre bieffekter, opererer det gjerne med immutable objekter (objekter/verdier som ikke kan endres).</p>
                         </aside>
                     </section>
@@ -141,7 +146,12 @@
                 </section>
 
                 <section>
-                    <section><h2>Funksjonell Reaktiv Programmering</h2></section>
+                    <section>
+                        <h2>Funksjonell Reaktiv Programmering</h2>
+                        <aside class="notes">
+                            <p>Så. Da har vi funksjonell programmering og vi har reaktiv programmering. Nå skal vi se på hvordan dette blir når vi slår det sammen.</p>
+                        </aside>
+                    </section>
                     <section>
                         <h3>To generelle konsepter</h3>
                         <ol>
@@ -285,13 +295,16 @@
                     <section>
                         <h3>I Bacon.js har adferd og hendelser andre navn.</h3>
                         <h4>En adferd kalles en Property og hendelse en EventStream.</h4>
+                        <aside class="notes">
+                            <p>Det er litt annen terminologi i Bacon.js.</p>
+                        </aside>
                     </section>
                     <section>
                         <h3>I Bacon.js innkapsler vi datakilder som reaktive datatyper.</h3>
                         <ul>
                             <li class="fragment"><code>fromEventTarget</code></li>
                             <li class="fragment"><code>fromPromise</code></li>
-                            <li class="fragment"><code>from[Node]Callback</code></li>
+                            <li class="fragment"><code>fromCallback</code></li>
                             <li class="fragment">...med flere</li>
                         </ul>
                         <aside class="notes">
@@ -519,6 +532,9 @@
                     <section>
                         <pre><code data-trim>var socketStream =
     Bacon.fromEventTarget(socket, "vote")</code></pre>
+                        <aside class="notes">
+                            <p>Her er <code>socket.io</code> brukt for å håndtere WebSockets, og ettersom det har et API-lignende EventEmitter, kan vi bruke det i fromEventTarget.</p>
+                        </aside>
                     </section>
                     <section>
                         <pre><code data-trim>var totalVoteProperty = function (id) {</code></pre>
